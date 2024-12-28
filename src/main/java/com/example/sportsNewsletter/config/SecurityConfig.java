@@ -48,18 +48,18 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                .requestMatchers("/login", "/register", "/api/auth/register", "/api/auth/login", "/css/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
-                .loginProcessingUrl("/api/auth/login")
-                .usernameParameter("email")
+                .loginPage("/login") 
+                .usernameParameter("email") 
                 .permitAll()
             )
-            .logout(logout -> logout.permitAll())
-            .authenticationProvider(authenticationProvider());
+            .logout(logout -> logout.permitAll());
         return http.build();
     }
+
 }
 
 
