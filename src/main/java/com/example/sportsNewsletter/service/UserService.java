@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -68,5 +69,10 @@ public class UserService implements UserDetailsService {
             throw new RuntimeException("User not found with email: " + email);
         }
         return new CustomUserDetails(user); // Wrap User in CustomUserDetails
+    }
+
+    public List<User> getAllSubscribers()
+    {
+        return userRepository.findAll();
     }
 }
