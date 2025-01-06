@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -20,13 +21,22 @@ public class NewsletterScheduler {
 
     @Scheduled(cron = "0 * * * * *") 
     public void sendDailyNewsletter() {
-        String rssUrl = "http://www.espn.com/espn/rss/news";
-        List<String> headlines = rssFeedService.fetchHeadlines(rssUrl);
+        // List the sports you want to send separate emails for
+        List<String> sports = Arrays.asList("NBA", "NFL", "MLB");
 
-        StringBuilder emailContent = new StringBuilder("Today's Top Sports Headlines:\n\n");
-        for (String headline : headlines) {
-            emailContent.append("- ").append(headline).append("\n");
+        for (String sport : sports) {
+            List<String> headlines = rssFeedService.fetchSportSpecificHeadline(sport);
+
+            StringBuilder emailContent = new StringBuilder("Today's Top " + sport + " Headlines:\n\n");
+            for (String headline : headlines) {
+                emailContent.append("- ").append(headline).append("\n");
+            }
+
+            emailService.sendEmail(
+                    "tbruns027@gmail.com", 
+                    "Daily " + sport + " Headlines", 
+                    emailContent.toString()
+            );
         }
-        emailService.sendEmail("tbruns027@gmail.com", "Daily Sports Headlines", emailContent.toString());
     }
 }
