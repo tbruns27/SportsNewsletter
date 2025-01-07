@@ -21,7 +21,6 @@ public class NewsletterScheduler {
 
     @Scheduled(cron = "0 * * * * *") 
     public void sendDailyNewsletter() {
-        // List the sports you want to send separate emails for
         List<String> sports = Arrays.asList("NBA", "NFL", "MLB");
 
         for (String sport : sports) {
