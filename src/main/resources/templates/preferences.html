@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sports Preferences</title>
+</head>
+<body>
+    <h1>Select Your Sports</h1>
+    <div th:each="sport : ${allSports}">
+        <input type="checkbox"
+               th:id="'sport-' + ${sport.id}"
+               th:value="${sport.name}"
+               data-sport-id="${sport.id}"/>
+        <label th:for="'sport-' + ${sport.id}"
+               th:text="${sport.name}"></label><br/>
+    </div>
+
+    <button id="saveBtn">Save Preferences</button>
+
+    <script th:inline="javascript">
+        let userId = /*[[${userId}]]*/;
+
+        console.log("Current User ID:", userId);
+
+        document.getElementById("saveBtn").addEventListener("click", function() {
+            const selectedIds = [];
+            document.querySelectorAll("input[type=checkbox]").forEach(chk => {
+                if (chk.checked) {
+                    selectedIds.push(parseInt(chk.getAttribute("data-sport-id")));
+                }
+            });
+
+            console.log("Selected sport IDs:", selectedIds);
+            fetch(`/api/preferences/${userId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(selectedIds)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Preferences saved successfully!");
+                } else {
+                    alert("Error saving preferences. Status: " + response.status);
+                }
+            })
+            .catch(err => {
+                console.error("Fetch error:", err);
+                alert("An error occurred while saving preferences.");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -19,9 +19,9 @@ public class NewsletterScheduler {
     @Autowired
     private EmailService emailService;
 
-    @Scheduled(cron = "0 * * * * *") 
+    @Scheduled(cron = "0 0 * * * *") 
     public void sendDailyNewsletter() {
-        List<String> sports = Arrays.asList("NBA", "NFL", "MLB");
+        List<String> sports = Arrays.asList("NBA", "NFL", "MLB", "NCAAF");
 
         for (String sport : sports) {
             List<String> headlines = rssFeedService.fetchSportSpecificHeadline(sport);

@@ -83,6 +83,8 @@ public class RssFeedService {
                 return "https://www.espn.com/espn/rss/nfl/news";
             case "MLB":
                 return "https://www.espn.com/espn/rss/mlb/news";
+            case "NCAAF":
+                return "https://www.espn.com/espn/rss/ncf/news";
             default:
                 throw new IllegalArgumentException("Unknown sport: " + sport);
         }
