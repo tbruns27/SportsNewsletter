@@ -7,10 +7,10 @@
 <body>
     <h1>Select Your Sports</h1>
     <div th:each="sport : ${allSports}">
-        <input type="checkbox"
-               th:id="'sport-' + ${sport.id}"
-               th:value="${sport.name}"
-               data-sport-id="${sport.id}"/>
+       <input type="checkbox"
+       th:id="'sport-' + ${sport.id}"
+       th:value="${sport.name}"
+       th:attr="data-sport-id=${sport.id}" />
         <label th:for="'sport-' + ${sport.id}"
                th:text="${sport.name}"></label><br/>
     </div>

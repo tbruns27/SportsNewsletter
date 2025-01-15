@@ -48,20 +48,14 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // Let people access these endpoints without being logged in
                 .requestMatchers("/auth/login", "/auth/register", "/css/**", "/js/**", "/images/**").permitAll()
-                // Everything else requires auth
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
-                // Show this page if not authenticated
                 .loginPage("/auth/login")
-                // The POST URL where credentials are submitted
                 .loginProcessingUrl("/auth/login")
-                // The form field names. By default "username" & "password"
                 .usernameParameter("email") 
                 .passwordParameter("password") 
-                // Where to go after success
                 .defaultSuccessUrl("/preferences", true)
                 .permitAll()
             )
