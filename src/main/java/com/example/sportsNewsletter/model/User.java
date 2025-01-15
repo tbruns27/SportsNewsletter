@@ -19,7 +19,7 @@ public class User {
     private String password;
 
     // Many-to-Many relationship with Sport
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //Potentially change for performance
     @JoinTable(
         name = "user_sport", 
         joinColumns = @JoinColumn(name = "user_id"), 

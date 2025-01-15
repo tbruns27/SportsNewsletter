@@ -10,7 +10,8 @@
        <input type="checkbox"
        th:id="'sport-' + ${sport.id}"
        th:value="${sport.name}"
-       th:attr="data-sport-id=${sport.id}" />
+       th:attr="data-sport-id=${sport.id}" 
+       th:checked="${#sets.contains(user.sports, sport)}" />
         <label th:for="'sport-' + ${sport.id}"
                th:text="${sport.name}"></label><br/>
     </div>

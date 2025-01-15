@@ -26,14 +26,16 @@ public class PreferencesPageController {
     public String showPreferencesPage(Principal principal, Model model) {
         String email = principal.getName();
         User user = userRepository.findByEmail(email);
-
-        model.addAttribute("userId", user.getId());
+    
+        model.addAttribute("user", user);
 
         List<Sport> sports = sportRepository.findAll();
         model.addAttribute("allSports", sports);
-
+        model.addAttribute("userId", user.getId());
+    
         return "preferences"; 
     }
+    
 }
 
 

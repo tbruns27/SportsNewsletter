@@ -11,7 +11,7 @@ public class NewsletterScheduler {
     @Autowired
     NewsletterService newsletterService;
 
-    @Scheduled(cron = "0 * * * * *") 
+    @Scheduled(cron = "0 0 * * * *") 
     public void sendDailyNewsletter() {
         newsletterService.sendDailyNewsletterInsideTransaction();
     }
